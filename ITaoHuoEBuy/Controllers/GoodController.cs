@@ -171,6 +171,24 @@ namespace EBuy.Controllers
             return View(goodsmodel);
         }
 
+        public ActionResult EditAmount(int id = 0)
+        {
+            GoodModel goodsmodel = db.Goods.Find(id);
+            //未找到与id对应的商品时返回404没有找到
+            if (goodsmodel == null)
+            {
+                return HttpNotFound();
+            }
+
+            ViewBag.Title = "修改货物数量";
+            GoodAmount goodsAmount = new GoodAmount()
+            {
+                GoodsId = goodsmodel.GoodsId,
+            };
+            ViewBag.NowAmount = goodsmodel.NowGoodsAmount();
+            return View(goodsAmount);
+        }
+
         [HttpPost]
         public ActionResult EditAmount(GoodAmount goodsAmount)
         {

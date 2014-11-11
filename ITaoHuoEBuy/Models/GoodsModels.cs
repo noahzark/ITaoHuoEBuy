@@ -179,7 +179,7 @@ namespace EBuy.Models
         public int GoodsId { get; set; }
 
         [Required]
-        [Range(1, 10000)]
+        [Range(-10000, 10000)]
         public int GoodsAmount { get; set; }
     }
 
