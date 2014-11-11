@@ -1,0 +1,18 @@
+﻿@section featured {
+    <section class="featured">
+    <div class="content-wrapper">
+            <hgroup class="title">
+                <h1>@ViewBag.Title.</h1>
+                <h2>@ViewBag.Message</h2>
+            </hgroup>
+    </div>
+</section>
+}
+
+<div id="dialog" title ="Upload Files">
+@using (Html.BeginForm("Index", "Upload", FormMethod.Post, new {enctype="multipart/form-data"})) 
+{
+     <input type="file" name="FileUpload" /><br />
+     <input type="submit" name="Submit" id="Submit" value="Upload" />
+}
+</div>

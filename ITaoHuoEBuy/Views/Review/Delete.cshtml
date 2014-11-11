@@ -1,0 +1,50 @@
+﻿@model EBuy.Models.ReviewModel
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <div>
+         @Html.DisplayNameFor(model => model.GoodsId)
+    </div>
+    <div>
+        @Html.DisplayFor(model => model.GoodsId)
+    </div>
+
+    <div>
+         @Html.DisplayNameFor(model => model.UserId)
+    </div>
+    <div>
+        @Html.DisplayFor(model => model.UserId)
+    </div>
+
+    <div>
+         @Html.DisplayNameFor(model => model.ReleaseTime)
+    </div>
+    <div>
+        @Html.DisplayFor(model => model.ReleaseTime)
+    </div>
+
+    <div>
+         @Html.DisplayNameFor(model => model.CommentTitle)
+    </div>
+    <div>
+        @Html.DisplayFor(model => model.CommentTitle)
+    </div>
+
+    <div>
+         @Html.DisplayNameFor(model => model.CommentDetail)
+    </div>
+    <div>
+        @Html.DisplayFor(model => model.CommentDetail)
+    </div>
+</div>
+@using (Html.BeginForm()) {
+    <p>
+        <input type="submit" value="Delete" />
+    </p>
+}

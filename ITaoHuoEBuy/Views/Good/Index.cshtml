@@ -1,0 +1,129 @@
+﻿@model IEnumerable<EBuy.Models.GoodModel>
+
+@section featured {
+    @Html.Action("SearchPartial", "Good")
+}
+
+<style type="text/css">
+* {
+	margin: 0;
+	padding: 0;
+}
+
+img {
+	border: none;
+}
+
+.container {
+	width: 758px;
+	margin: 0 auto;
+	padding-bottom: 100px;
+	overflow: hidden;
+}
+
+ul.display {
+	float: left;
+	width: 756px;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+ul.display li {
+	float: left;
+	width: 754px;
+	padding: 10px 0;
+	margin: 0;
+	border-top: 1px solid lightblue;
+	border-right: 1px solid lightblue;
+	border-bottom: 1px solid lightblue;
+	border-left: 1px solid lightblue;
+}
+ul.display li a 
+{
+    padding: 0px;
+	text-decoration: none;
+}
+ul.display li .content_block {
+	padding: 0 10px;
+}
+ul.display li .content_block h2 {
+	margin: 0;
+	padding: 5px;
+	font-weight: normal;
+	font-size: 1.7em;
+}
+ul.display li .content_block p {
+	margin: 0;
+	padding: 5px 5px 5px 245px;
+	font-size: 1.2em;
+}
+ul.display li .content_block a img{
+	padding: 5px;
+	border: 2px solid #ccc;
+	background:#fff;
+	margin: 0 15px 0 0;
+	float: left;
+}
+
+ul.thumb_view li{
+	width: 250px;
+}
+ul.thumb_view li h2 {
+	display: inline;
+}
+ul.thumb_view li p{
+	display: none;
+}
+ul.thumb_view li .content_block a img {
+	margin: 0 0 10px;
+}
+
+a.switch_thumb {
+	width: 122px;
+	height: 26px;
+	line-height: 26px;
+	padding: 0;
+	margin: 10px 0;
+	/*display: block;
+	background: url(images/switch.gif) no-repeat;
+	outline: none;
+	text-indent: -9999px;*/
+}
+a:hover.switch_thumb {
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=75)";
+}
+a.swap { background-position: left bottom; }
+</style>
+
+<h2>@ViewBag.Title.</h2>
+@if (User.Identity.IsAuthenticated)
+{
+    <div>
+        <h3>发布新商品</h3>
+        @Html.ActionLink("Create New", "Create", "Good")
+    </div>
+}
+else
+{
+    <h3>登录后即可查看商品详情以及发布新商品哟。</h3>
+}
+<br />
+@if (Model.Count() != 0)
+{
+<div class="container">
+    <ul class="display">
+    @foreach (var item in Model)
+    {
+    <li>
+        <div class="content_block">
+                <a href="/Good/Details/@item.GoodsId"><img src="@Html.Action("GoodsImage", "Image", new { picName = item.GoodsIcon })" alt="" height="120" width="215" /></a>
+                <h2>@Html.ActionLink(item.GoodsName, "Details", new { id = item.GoodsId })</h2>
+                <h3>￥ @Html.DisplayFor(modelItem => item.GoodsPrice)</h3>
+                <p>@Html.DisplayFor(modelItem => item.GoodsSummary)
+                </p>
+         </div>
+    </li>
+    }   
+    </ul>
+</div>
+}

@@ -1,0 +1,24 @@
+﻿@model IEnumerable<EBuy.Models.GoodsInCartModel>
+
+@{
+    ViewBag.Title = "ShowCart";
+}
+
+<h2>@ViewBag.Title</h2>
+<ol>
+@foreach (var item in Model)
+{
+    <li>@Html.DisplayFor(modelItem => item.Name)
+        @using (Html.BeginForm("Edit", "Cart", new {id = item.GoodsId}, FormMethod.Post, null)){
+        <table>
+            <tr>
+                <td>@Html.DisplayNameFor(model => model.Quantity)</td>
+                <td>@Html.EditorFor(modelItem => item.Quantity)</td>
+                <td><input type="submit" name="Edit" value="修改" />
+                <input type="submit" name="Remove" value="删除" /></td>
+            </tr>
+        </table>
+        }
+    </li>
+}
+</ol>

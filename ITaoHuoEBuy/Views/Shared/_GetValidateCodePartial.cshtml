@@ -1,0 +1,10 @@
+﻿<script type="text/javascript">
+    function loadImage() {
+        document.getElementById("valiCode").src = "/ValidateCode/GetValidateCode?time=" + (new Date()).getTime();
+    } 
+</script>
+
+<p>  
+<img id="valiCode" src="@Url.Action("GetValidateCode", "ValidateCode")" alt="验证码" />
+<a href="javascript:loadImage();">@Resources.PageLanguage.BtnValiCodeNotClear</a>
+</p>

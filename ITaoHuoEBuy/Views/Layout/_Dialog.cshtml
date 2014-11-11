@@ -1,0 +1,34 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title</title>
+    <meta name="viewport" content="width=device-width" />
+    @Styles.Render("~/Content/css/mobile")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jquerymobile")
+    @RenderSection("scripts", required: false)
+</head>
+<body>
+    <div data-role="dialog">
+
+	    <div data-role="header" data-theme="d">
+		    <h1>@ViewBag.Title</h1>
+	    </div>
+	    <div data-role="content" data-theme="c">
+		    @RenderBody()
+	    </div>
+
+        <div data-role="footer" class="footer-docs" data-theme="c">
+		    <p>&copy; 2014 - @Resources.PageLanguage.StrCopyright</p>
+	    </div>
+    </div>
+    
+</body>
+</html>

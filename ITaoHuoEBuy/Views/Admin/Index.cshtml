@@ -1,0 +1,26 @@
+﻿@section featured {
+    <section class="featured">
+    <div class="content-wrapper">
+            <hgroup class="title">
+                <h1>@ViewBag.Title.</h1>
+                <h2>@ViewBag.Message</h2>
+            </hgroup>
+    </div>
+    </section>
+}
+
+<h3>管理控制台：</h3>
+<ol class="round">
+    <li class="one">
+        <h5>发布新商品</h5>
+        @Html.ActionLink("Create New", "Create", "Good")
+    </li>
+    <li class="two">
+        <h5>商品管理</h5>
+        @Html.ActionLink("商品管理", "Manage", "Good")
+    </li>
+    <li class="three">
+        <h5>评论管理</h5>
+        @Html.ActionLink("评论管理", "Manage", "Review")
+    </li>
+</ol>

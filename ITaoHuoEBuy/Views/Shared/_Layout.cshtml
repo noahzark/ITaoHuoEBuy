@@ -1,0 +1,52 @@
+﻿<!DOCTYPE html>@* 声明网页类型 *@
+<html lang="zh">
+    <head> @* 定义文档的头部 *@
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>@* meta提供有关页面的元信息 *@
+        <meta charset="utf-8" /><!-- 声明网页字符集 -->
+        <title>@ViewBag.Title - My Design</title>@* 网页标题，从ViewBag中取出Title的信息并显示出来 *@
+        <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />@* 网页图标 href表示地址 *@
+        <meta name="viewport" content="width=device-width" />@* 控制网页显示宽度为设备宽度，Viewport表示网页的显示方式 *@
+        @Styles.Render("~/Content/css")@* 渲染CSS样式信息 *@
+        @Scripts.Render("~/bundles/modernizr")@* 渲染Modernizer脚本插件信息 *@
+        @* 以上渲染器在App_Start/BundleConfig中由系统自动生成 *@
+    </head>
+    <body>@* 文档主体 *@
+        <header>@* 页面上部 *@
+            <div class="content-wrapper">
+                <div class="float-left">@* 左上部分 *@
+                    <p class="site-title">@Html.ActionLink(@Resources.PageLanguage.TitleWebsite, "Index", "Home")</p>@* 使用Html.ActionLink动态渲染超链接 *@
+                </div>
+                <div class="float-right">@* 右上部分 *@
+                    <section id="login">@* 登录框 *@
+                        @Html.Partial("_LoginPartial") @* 动态渲染部分视图 *@
+                    </section>
+                    <nav>@* 导航框架 *@
+                        <ul id="menu">@* 生成一个列表，li表示列表中的每一项 *@
+                            <li>@Html.ActionLink(@Resources.PageLanguage.TitleIndex, "Index", "Home")</li>
+                            @* 取出PageLanguage多语言配置中TitleIndex对应的字符串，并自动生成Home Controller中Index的超链接 *@
+                            <li>@Html.ActionLink(@Resources.PageLanguage.TitleContact, "Contact", "Home")</li>
+                            <li>@Html.ActionLink(@Resources.PageLanguage.TitleGoodIndex, "Index", "Good")</li>
+                            <li>@Html.ActionLink(@Resources.PageLanguage.TitleAdmin, "Index", "Admin")</li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </header>
+        <div id="body">@* 页面主体部分 *@
+            @RenderSection("featured", required: false)@* 渲染一个名为featured的section，该section在子页面中不必要 *@
+            <section class="content-wrapper main-content clear-fix">
+                @RenderBody() @* 渲染子页面Body部分 *@
+            </section>
+        </div>
+        <footer>@* 页面底部 *@
+            <div class="content-wrapper">
+                <div class="float-left">
+                    <p>&copy; 2014 - @Html.ActionLink(@Resources.PageLanguage.StrCopyright, "Contact", "Home")</p>@* copy 表示页面底部带c的标志，@后面表示到pagelanguage里找到Strcopyright对应的多语言字符串 *@
+                </div>
+            </div>
+        </footer>
+
+        @Scripts.Render("~/bundles/jquery")@* 渲染jQuery脚本插件信息 *@
+        @RenderSection("scripts", required: false)@* 渲染自定义脚本部分 *@
+    </body>
+</html>

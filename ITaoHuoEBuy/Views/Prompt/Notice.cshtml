@@ -1,0 +1,31 @@
+﻿@model EBuy.Models.Notice
+
+@{
+    ViewBag.Title = Model.Title;
+    Layout = "~/Views/Layout/_Dialog.cshtml";
+}
+
+<div>
+    <dl>
+        <dt>@Html.DisplayFor(model => model.Title)</dt>
+        <dd>@Html.DisplayFor(model => model.Details)</dd>
+        @if (Model.DelayTime >= 0)
+        {
+            <dd>系统将在 <span id="time">@Model.DelayTime </span>秒后跳转到 @Model.NavigationName。如未自动跳转请点击<a href="@Model.NavigationUrl">@Model.NavigationName</a>。</dd>
+            @section Scripts{
+                @Scripts.Render("~/bundles/jquery");
+                }
+            <script type="text/javascript">
+                function Jump(time) {
+                    window.setTimeout(function () {
+                        time--;
+                        $("#time").text(time);
+                        if (time > 0) Jump(time);
+                        else location.href = "@Model.NavigationUrl";
+                    }, 1000);
+                }
+                Jump(@Model.DelayTime);
+            </script>
+        }
+    </dl>
+</div>

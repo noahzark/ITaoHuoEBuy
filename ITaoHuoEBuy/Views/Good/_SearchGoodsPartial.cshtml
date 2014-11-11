@@ -1,0 +1,15 @@
+﻿<section class="featured">
+    <div class="content-wrapper">
+            <hgroup class="title">
+                <h1>@ViewBag.Title</h1>
+            </hgroup>
+            <p>
+                @using (Html.BeginForm("Search", "Good"))
+                {
+                    <!--用HTML得beginform方法生成一个form表单，表单提交给good controller的search action-->
+                    <input name="GoodsName" type="text" style="width:90%" value="@Resources.PageLanguage.HintInputGoodsName"/>
+                    <input type="submit" value="@Resources.PageLanguage.BtnSearch" />
+                }
+            </p>
+    </div>
+</section>

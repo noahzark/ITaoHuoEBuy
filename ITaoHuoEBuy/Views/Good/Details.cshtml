@@ -1,0 +1,66 @@
+﻿@model EBuy.Models.GoodModel
+
+<h2>@ViewBag.Title</h2>
+
+    
+    <img src="@Html.Action("GoodsImage", "Image", new { picName = Model.GoodsIcon })" alt="" width="215" height="120" />
+    <table>
+    <tr>
+        <td>
+             @Html.DisplayNameFor(model => model.UserId) :
+             @Html.DisplayFor(model => model.UserId)
+        </td>
+
+        <td>
+             @Html.DisplayNameFor(model => model.ReleaseTime):
+             @Html.DisplayFor(model => model.ReleaseTime)
+        </td>
+    </tr>
+    <tr>
+        <td>
+             @Html.DisplayNameFor(model => model.GoodsName)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.GoodsName)
+        </td>
+    </tr>
+    <tr>
+        <td>
+             @Html.DisplayNameFor(model => model.GoodsPrice)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.GoodsPrice)
+        </td>
+    </tr>
+    <tr>
+        <td>
+             @Html.DisplayNameFor(model => model.GoodsSummary)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.GoodsSummary)
+        </td>
+    </tr>
+    <tr>
+        <td>
+             @Html.DisplayNameFor(model => model.GoodsDetail)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.DisplayFor(model => model.GoodsDetail)
+        </td>
+    </tr>
+    </table>
+@using (Html.BeginForm("AddToCart", "Cart", new { id = Model.GoodsId }, FormMethod.Post, null))
+{
+    @Html.ValidationSummary(true)
+    <input type="submit" value="Add to Cart" />
+}
+<hr />
+@Html.Action("Create", "Review", new { goodsId = Model.GoodsId })
+<hr />
+@Html.Action("List", "Review", new { goodsId = Model.GoodsId })
+<hr />
+<p>
+    @Html.ActionLink("Back to List", "Index")
+</p>

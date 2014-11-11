@@ -1,0 +1,61 @@
+﻿@model EBuy.Models.GoodModel
+
+<h2>@ViewBag.Title</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <div>
+         @Html.DisplayNameFor(model => model.UserId)
+    </div>
+    <div>
+        @Html.DisplayFor(model => model.UserId)
+    </div>
+
+    <div>
+         @Html.DisplayNameFor(model => model.ReleaseTime)
+    </div>
+    <div>
+        @Html.DisplayFor(model => model.ReleaseTime)
+    </div>
+
+    <div>
+         @Html.DisplayNameFor(model => model.UpdateTime)
+    </div>
+    <div>
+        @Html.DisplayFor(model => model.UpdateTime)
+    </div>
+
+    <div>
+         @Html.DisplayNameFor(model => model.GoodsName)
+    </div>
+    <div>
+        @Html.DisplayFor(model => model.GoodsName)
+    </div>
+
+    <div>
+         @Html.DisplayNameFor(model => model.GoodsPrice)
+    </div>
+    <div>
+        @Html.DisplayFor(model => model.GoodsPrice)
+    </div>
+
+    <div>
+         @Html.DisplayNameFor(model => model.GoodsSummary)
+    </div>
+    <div>
+        @Html.DisplayFor(model => model.GoodsSummary)
+    </div>
+
+    <div>
+         @Html.DisplayNameFor(model => model.GoodsDetail)
+    </div>
+    <div>
+        @Html.DisplayFor(model => model.GoodsDetail)
+    </div>
+</div>
+@using (Html.BeginForm()) {
+    <p>
+        <input type="submit" value="Delete" /> |
+        @Html.ActionLink("Back to List", "Manage")
+    </p>
+}

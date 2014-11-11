@@ -1,0 +1,12 @@
+.pikachoose #fancybox-close, .fancyimage {
+	border-bottom: 0px dotted #7CC1DD;
+}
+
+.pikachoose img, article img, aside img {
+	background: #7CC1DD;
+	padding: 1px;
+	-webkit-box-shadow: 0 0 4px rgba(0,0,0,0.50);
+	-moz-box-shadow: 0 0 4px rgba(0,0,0,0.50);
+	-webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
+}

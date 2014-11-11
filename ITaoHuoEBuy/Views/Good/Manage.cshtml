@@ -1,0 +1,37 @@
+﻿@model IEnumerable<EBuy.Models.GoodModel>
+
+<h2>@ViewBag.Title</h2>
+
+<table style="table-layout: auto">
+    <tr>
+        <th width=200>
+            @Html.DisplayNameFor(model => model.GoodsName)
+        </th>
+        <th width=150>
+            @Html.DisplayNameFor(model => model.GoodsPrice)
+        </th>
+        <th width=200>
+            @Html.DisplayNameFor(model => model.GoodsSummary)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.GoodsName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.GoodsPrice)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.GoodsSummary)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.GoodsId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.GoodsId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.GoodsId })
+        </td>
+    </tr>
+}
+</table>

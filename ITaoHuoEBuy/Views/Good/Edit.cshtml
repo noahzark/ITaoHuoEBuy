@@ -1,0 +1,79 @@
+﻿@model EBuy.Models.GoodModel
+
+<h2>@ViewBag.Title</h2>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+    <div>
+        @Html.HiddenFor(model => model.GoodsId)
+
+        <div>
+            @Html.LabelFor(model => model.UserId)
+        </div>
+        <div>
+            @Html.EditorFor(model => model.UserId)
+            @Html.ValidationMessageFor(model => model.UserId)
+        </div>
+
+        <div>
+            @Html.LabelFor(model => model.ReleaseTime)
+        </div>
+        <div>
+            @Html.EditorFor(model => model.ReleaseTime)
+            @Html.ValidationMessageFor(model => model.ReleaseTime)
+        </div>
+
+        <div>
+            @Html.LabelFor(model => model.GoodsIcon)
+        </div>
+        <div>
+            @Html.EditorFor(model => model.GoodsIcon)
+            @Html.ValidationMessageFor(model => model.GoodsIcon)
+        </div>
+
+        <div>
+            @Html.LabelFor(model => model.GoodsName)
+        </div>
+        <div>
+            @Html.EditorFor(model => model.GoodsName)
+            @Html.ValidationMessageFor(model => model.GoodsName)
+        </div>
+
+        <div>
+            @Html.LabelFor(model => model.GoodsPrice)
+        </div>
+        <div>
+            @Html.EditorFor(model => model.GoodsPrice)
+            @Html.ValidationMessageFor(model => model.GoodsPrice)
+        </div>
+
+        <div>
+            @Html.LabelFor(model => model.GoodsSummary)
+        </div>
+        <div>
+            @Html.EditorFor(model => model.GoodsSummary)
+            @Html.ValidationMessageFor(model => model.GoodsSummary)
+        </div>
+
+        <div>
+            @Html.LabelFor(model => model.GoodsDetail)
+        </div>
+        <div>
+            @Html.EditorFor(model => model.GoodsDetail)
+            @Html.ValidationMessageFor(model => model.GoodsDetail)
+        </div>
+
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Manage")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

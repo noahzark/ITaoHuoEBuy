@@ -1,0 +1,70 @@
+﻿@model EBuy.Models.NewGoodsModel
+
+@section featured {
+    <section class="featured">
+    <div class="content-wrapper">
+            <hgroup class="title">
+                <h1>@ViewBag.Title.</h1>
+                <h2>@ViewBag.Message</h2>
+            </hgroup>
+    </div>
+</section>
+}
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+    <div>
+        <div>
+            @Html.LabelFor(model => model.GoodsName)
+        </div>
+        <div>
+            @Html.EditorFor(model => model.GoodsName)
+            @Html.ValidationMessageFor(model => model.GoodsName)
+        </div>
+
+        <div>
+            @Html.LabelFor(model => model.GoodsPrice)
+        </div>
+        <div>
+            @Html.EditorFor(model => model.GoodsPrice)
+            @Html.ValidationMessageFor(model => model.GoodsPrice)
+        </div>
+
+        <div>
+            @Html.LabelFor(model => model.GoodsAmount)
+        </div>
+        <div>
+            @Html.EditorFor(model => model.GoodsAmount)
+            @Html.ValidationMessageFor(model => model.GoodsAmount)
+        </div>
+
+        <div>
+            @Html.LabelFor(model => model.GoodsSummary)
+        </div>
+        <div>
+            @Html.EditorFor(model => model.GoodsSummary)
+            @Html.ValidationMessageFor(model => model.GoodsSummary)
+        </div>
+
+        <div>
+            @Html.LabelFor(model => model.GoodsDetail)
+        </div>
+        <div>
+            @Html.EditorFor(model => model.GoodsDetail)
+            @Html.ValidationMessageFor(model => model.GoodsDetail)
+        </div>
+
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

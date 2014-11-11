@@ -1,0 +1,15 @@
+﻿@model EBuy.Models.Error
+
+@{
+    ViewBag.Title = " 发生错误";
+    Layout = "~/Views/Layout/_Dialog.cshtml";
+}
+
+<div>
+    <dl>
+        <dt>@Html.DisplayFor(model => model.Title)</dt>
+        <dd>@Html.Raw(Model.Details)</dd>
+        <dd>@Html.Raw(Model.Cause)</dd>
+        <dd>@Html.Raw(Model.Solution)</dd><!--dl列表，dt表的上半部分，DD表的下半部分-->
+    </dl>
+</div>

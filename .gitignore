@@ -1,3 +1,15 @@
+# Picture upload folder
+ITaoHuoEBuy/Images/Upload
+
+# Debug output folder
+ITaoHuoEBuy/obj
+
+# Package folder
+/packages
+
+# Articles
+/Article
+
 # Windows image file caches
 Thumbs.db
 ehthumbs.db

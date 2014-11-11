@@ -1,0 +1,12 @@
+﻿@section featured {
+    @Html.Action("SearchPartial", "Good")
+}
+@Html.Partial("_IndexMainPartial")
+@section scripts{
+<script type="text/javascript" src="/Scripts/jquery.pikachoose.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#pikame").PikaChoose();
+    });
+</script>
+}

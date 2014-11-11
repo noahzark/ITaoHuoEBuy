@@ -1,0 +1,28 @@
+﻿@model EBuy.Models.NewReviewModel
+
+@using (Html.BeginForm("Create","Review")) {
+    @Html.ValidationSummary(true)
+
+    <div>
+        @Html.HiddenFor(model => model.GoodsId)
+        <div>
+            @Html.LabelFor(model => model.CommentTitle)
+        </div>
+        <div>
+            @Html.EditorFor(model => model.CommentTitle)
+            @Html.ValidationMessageFor(model => model.CommentTitle)
+        </div>
+
+        <div>
+            @Html.LabelFor(model => model.CommentDetail)
+        </div>
+        <div>
+            @Html.EditorFor(model => model.CommentDetail)
+            @Html.ValidationMessageFor(model => model.CommentDetail)
+        </div>
+
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </div>
+}

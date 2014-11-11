@@ -1,0 +1,33 @@
+﻿@model EBuy.Models.LocalPasswordModel
+
+<hgroup class="title">
+    <h1>@ViewBag.Title.</h1>
+</hgroup>
+
+<p class="message-success">@ViewBag.StatusMessage</p>
+
+<p>你已使用 <strong>@User.Identity.Name</strong> 身份登录。</p>
+
+<p>
+<h3>发布新商品</h3><br />
+@Html.ActionLink("Create New", "Create", "Good")
+</p>
+
+@Html.Partial("_ChangePasswordPartial")
+@*if (ViewBag.HasLocalPassword)
+{
+    @Html.Partial("_ChangePasswordPartial")
+}
+else
+{ 
+    @Html.Partial("_SetPasswordPartial")
+}*@
+
+<section id="externalLogins">
+    <h3>添加SNS账号</h3>
+    @Html.Partial("_AddSNSPartial");
+</section>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

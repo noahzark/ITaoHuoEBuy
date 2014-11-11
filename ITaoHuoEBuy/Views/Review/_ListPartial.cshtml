@@ -1,0 +1,49 @@
+﻿@model IEnumerable<EBuy.Models.ReviewModel>
+
+<h3>@ViewBag.Title</h3>
+
+@if (Model.Count() > 0)
+{
+<table>
+    <tr>
+        <th width = 200>
+            @Html.DisplayNameFor(model => model.UserId)
+        </th>
+        <th width = 200>
+            @Html.DisplayNameFor(model => model.ReleaseTime)
+        </th>
+        <th width = 200>
+            @Html.DisplayNameFor(model => model.CommentTitle)
+        </th>
+        <th width = 200>
+            @Html.DisplayNameFor(model => model.CommentDetail)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model)
+{
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ReleaseTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CommentTitle)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CommentDetail)
+        </td>
+        @if (User.Identity.Name == "admin")
+        {
+            <td>
+               @Html.ActionLink("Delete", "Delete", new { id = item.CommentId })
+            </td>
+        }
+    </tr>
+}
+
+</table>
+}
