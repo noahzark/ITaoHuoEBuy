@@ -1,0 +1,29 @@
+﻿@model EBuy.Models.OrderModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>OrderModel</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.CustomId)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.CustomId)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.OrderDate)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.OrderDate)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.OrderId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -34,6 +34,6 @@ namespace EBuy.Models
 
         [Required]
         [Display(Name = "购买数量")]
-        public int GoodsAmount;
+        public int GoodsAmount { get; set; }
     }
 }
