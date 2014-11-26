@@ -162,6 +162,15 @@ namespace EBuy.Controllers
             return View(model);
         }
 
+        public ActionResult Manage()
+        {
+            ViewBag.HasLocalPassword = true;
+            ViewBag.ReturnUrl = Url.Action("Manage");
+            ViewBag.Title = "管理帐户";
+
+            return View();
+        }
+
         //
         // GET: /Account/Manage
         /// <summary>
@@ -169,7 +178,7 @@ namespace EBuy.Controllers
         /// </summary>
         /// <param name="message"></param>
         /// <returns></returns>
-        public ActionResult Manage(ManageMessageId? message)
+        public ActionResult ChangePassword(ManageMessageId? message)
         {
             ViewBag.StatusMessage =
                 message == ManageMessageId.ChangePasswordSuccess ? "已更改你的密码。"
@@ -180,7 +189,7 @@ namespace EBuy.Controllers
             //ViewBag.HasLocalPassword = OAuthWebSecurity.HasLocalAccount(WebSecurity.GetUserId(User.Identity.Name));
             ViewBag.HasLocalPassword = true;
             ViewBag.ReturnUrl = Url.Action("Manage");
-            ViewBag.Title = "管理帐户";
+            ViewBag.Title = "修改密码";
             return View();
         }
 
@@ -193,7 +202,7 @@ namespace EBuy.Controllers
         /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Manage(LocalPasswordModel model)
+        public ActionResult ChangePassword(LocalPasswordModel model)
         {
             bool hasLocalAccount = //OAuthWebSecurity.HasLocalAccount(WebSecurity.GetUserId(User.Identity.Name));
                 true;
