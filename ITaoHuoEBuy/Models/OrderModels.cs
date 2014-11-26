@@ -15,6 +15,16 @@ namespace EBuy.Models
     [Table("Orders")]
     public class OrderModel
     {
+
+        public enum OrderStatusId
+        {
+            Unpaid,
+            Paid,
+            Sent,
+            Finished,
+            Cancelled,
+        }
+
         [Key]
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         [Display(Name = "订单编号")]
@@ -35,5 +45,9 @@ namespace EBuy.Models
         [Required]
         [Display(Name = "购买数量")]
         public int GoodsAmount { get; set; }
+
+        [Required]
+        [Display(Name = "订单状态")]
+        public OrderStatusId OrderStatus { get; set; }
     }
 }

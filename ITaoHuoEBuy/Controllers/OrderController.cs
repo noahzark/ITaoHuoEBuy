@@ -35,14 +35,6 @@ namespace EBuy.Controllers
         }
 
         //
-        // GET: /Order/Create
-
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        //
         // POST: /Order/Create
 
         [HttpPost]
@@ -71,6 +63,7 @@ namespace EBuy.Controllers
                     OrderDate = DateTime.Now,
                     GoodShortcut = GoodModel.ToByteArray(goodModel),
                     GoodsAmount = quantity,
+                    OrderStatus = OrderModel.OrderStatusId.Unpaid,
                 };
 
                 goodModel.GoodsSold += quantity;
@@ -82,7 +75,15 @@ namespace EBuy.Controllers
 
             db.SaveChanges();
 
-            return View("Create");
+            Notice _n = new Notice
+            {
+                Title = "恭喜", //提示框标题
+                Details = "下单成功！", //提示框内容
+                DelayTime = 5, //提示框停留时间
+                NavigationName = "订单管理", //提示框返回页面标题
+                NavigationUrl = Url.Action("Index", "Order") //提示框返回的页面
+            };
+            return RedirectToAction("Notice", "Prompt", _n);
         }
 
         //
