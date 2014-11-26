@@ -5,11 +5,19 @@
 }
 
 <h2>@ViewBag.Title</h2>
-<ol>
+
+@if (Model.Count() == 0)
+{
+    <a>Shopping cart is empty</a>
+}
+else
+{
+    <ol>
 @foreach (var item in Model)
 {
     <li>@Html.DisplayFor(modelItem => item.Name)
-        @using (Html.BeginForm("Edit", "Cart", new {id = item.GoodsId}, FormMethod.Post, null)){
+        @using (Html.BeginForm("Edit", "Cart", new { id = item.GoodsId }, FormMethod.Post, null))
+        {
         <table>
             <tr>
                 <td>@Html.DisplayNameFor(model => model.Quantity)</td>
@@ -23,6 +31,8 @@
 }
 </ol>
 
-@using (Html.BeginForm("New", "Order", FormMethod.Post)){
-
+using (Html.BeginForm("Create", "Order", FormMethod.Post))
+{
+    <input type="submit" name="Remove" value="提交订单" />
+}
 }
