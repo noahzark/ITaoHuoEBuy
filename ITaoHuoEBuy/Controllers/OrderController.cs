@@ -50,9 +50,15 @@ namespace EBuy.Controllers
             string[] arrCookie = ShoppingCartStr.Split(new char[] { ',' });
             for (int i = 0; i < arrCookie.Length; i++)
             {
-                int id = Convert.ToInt32(arrCookie[i].Trim().Remove(arrCookie[i].IndexOf(':')));//获得Id
+                int id = CartController.getGoodsId(arrCookie[i]);
+
+                if (id < 0)
+                    continue;
 
                 GoodModel goodModel = db.Goods.Find(id);
+
+                if (goodModel == null)
+                    continue;
 
                 string quantityStr = arrCookie[i].Trim().Substring(arrCookie[i].Trim().IndexOf(':') + 1);//得到数量
                 int quantity = Convert.ToInt32(quantityStr);

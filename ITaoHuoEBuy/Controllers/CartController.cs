@@ -15,28 +15,73 @@ namespace EBuy.Controllers
     {
         private EBuyContext db = new EBuyContext();
 
+        private bool checkCookie(HttpCookie oCookie)
+        {
+            if (oCookie == null)
+                return false;
+            return true;
+        }
+
+        public static bool checkGoodInCookie(String goodStr)
+        {
+            if (String.IsNullOrEmpty(goodStr))
+                return false;
+
+            if (!goodStr.Contains(":"))
+                return false;
+
+            if (goodStr.Length < goodStr.LastIndexOf(":") + 1)
+                return false;
+
+            return true;
+        }
+
+        public static int getGoodsId(String cartStr)
+        {
+            if (checkGoodInCookie(cartStr))
+                return Convert.ToInt32(cartStr.Trim().Remove(cartStr.IndexOf(':')));
+            return -1;
+        }
+
         //
         // GET: /Cart/Show
         public ActionResult Show()
         {
             SortedSet<GoodsInCartModel> Set = new SortedSet<GoodsInCartModel>();
             HttpCookie oCookie = Request.Cookies["ShoppingCart"];
+            if (!checkCookie(oCookie))
+            {
+                oCookie = new HttpCookie("ShoppingCart");
+                oCookie.Expires = DateTime.Now.AddYears(3);
+                oCookie.Value = "";
+                Response.Cookies.Add(oCookie);
+
+                return View(Set);
+            }
+
             oCookie.Expires = DateTime.Now.AddYears(3);
             string ShoppingCartStr = oCookie.Value.ToString();
             string[] arrCookie = ShoppingCartStr.Split(new char[] { ',' });
             //查看cookie中是否有该产品
+
+            //TODO: Handle cookie error
             for (int i = 0; i < arrCookie.Length; i++)
             {
-                int id = Convert.ToInt32(arrCookie[i].Trim().Remove(arrCookie[i].IndexOf(':')));//获得Id
+                if (!checkGoodInCookie(arrCookie[i]))
+                    continue;
 
-                string name = db.Goods.Find(id).GoodsName;
+                int id = getGoodsId(arrCookie[i]);//获得Id
+
+                GoodModel good = db.Goods.Find(id);
+
+                string name = (good != null) ? good.GoodsName : "错误的商品id";
 
                 string quantityStr = arrCookie[i].Trim().Substring(arrCookie[i].Trim().IndexOf(':') + 1);//得到数量
                 int quantity = Convert.ToInt32(quantityStr);
 
-                GoodsInCartModel good = new GoodsInCartModel(id, name, quantity);
+                GoodsInCartModel goodInCart = new GoodsInCartModel(id, name, quantity);
 
-                Set.Add(good);
+                Set.Add(goodInCart);
             }
 
             return View(Set);
@@ -67,7 +112,8 @@ namespace EBuy.Controllers
                 string newCookie = "";
                 for (int i = 0; i < arrCookie.Length; i++)
                 {
-                    if (arrCookie[i].Trim().Remove(arrCookie[i].IndexOf(':')) == id.ToString().Trim())
+                    int goodsId = getGoodsId(arrCookie[i]);
+                    if (goodsId == id)
                     {
                         bExists = true;
                         string OldQuantity = arrCookie[i].Trim().Substring(arrCookie[i].Trim().IndexOf(':') + 1);//得到数量
@@ -100,7 +146,7 @@ namespace EBuy.Controllers
                 // TODO: Add update logic here
                 string nowQuantity = collection.Get("item.Quantity");
                 HttpCookie oCookie = Request.Cookies["ShoppingCart"];
-                if (oCookie == null)
+                if (oCookie != null)
                 {
                     oCookie.Expires = DateTime.Now.AddYears(3);
                     string ShoppingCartStr = oCookie.Value.ToString();
@@ -109,12 +155,17 @@ namespace EBuy.Controllers
                     string newCookie = "";
                     for (int i = 0; i < arrCookie.Length; i++)
                     {
-                        string goodsId = arrCookie[i].Trim().Remove(arrCookie[i].IndexOf(':'));
-                        if (goodsId == id.ToString().Trim())
-                            newCookie = newCookie + "," + goodsId + ":" + nowQuantity;
+                        int goodsId = getGoodsId(arrCookie[i]);
+
+                        if (collection.Get("Remove") != null && goodsId == id)
+                            continue;
+
+                        if (goodsId == id)
+                            newCookie += "," + goodsId + ":" + nowQuantity;
                         else
-                            newCookie = newCookie + "," + arrCookie[i];
+                            newCookie += "," + arrCookie[i];
                     }
+                    oCookie.Value = newCookie.Substring(1);;
                     Response.Cookies.Add(oCookie);
                 }
 
@@ -125,31 +176,6 @@ namespace EBuy.Controllers
                 return RedirectToAction("Show");
             }
         }
-
-        //
-        // POST: /Cart/Delete/5
-
-        [HttpPost]
-        public ActionResult Delete(int id)
-        {
-            HttpCookie oCookie = Request.Cookies["ShoppingCart"];
-            if (oCookie == null)
-            {
-                oCookie.Expires = DateTime.Now.AddYears(3);
-                string ShoppingCartStr = oCookie.Value.ToString();
-                string[] arrCookie = ShoppingCartStr.Split(new char[] { ',' });
-                //如果Cookie中有商品则删除
-                string newCookie = "";
-                for (int i = 0; i < arrCookie.Length; i++)
-                {
-                    if (arrCookie[i].Trim().Remove(arrCookie[i].IndexOf(':')) == id.ToString().Trim())
-                        continue;
-                    newCookie = newCookie + "," + arrCookie[i];
-                }
-                Response.Cookies.Add(oCookie);
-            }
-
-            return RedirectToAction("Show");
-        }
     }
+
 }
