@@ -168,6 +168,9 @@
   <data name="TitleAdmin" xml:space="preserve">
     <value>后台管理</value>
   </data>
+  <data name="TitleCart" xml:space="preserve">
+    <value>购物车</value>
+  </data>
   <data name="TitleContact" xml:space="preserve">
     <value>联系方式</value>
   </data>

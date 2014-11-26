@@ -165,6 +165,9 @@
   <data name="TitleAdmin" xml:space="preserve">
     <value>Admin</value>
   </data>
+  <data name="TitleCart" xml:space="preserve">
+    <value>Cart</value>
+  </data>
   <data name="TitleContact" xml:space="preserve">
     <value>Contact</value>
   </data>
