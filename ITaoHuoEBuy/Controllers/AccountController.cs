@@ -68,7 +68,9 @@ namespace EBuy.Controllers
             }
             else //验证码校验失败提示验证码错误
                 ModelState.AddModelError("", @Resources.Language.ErrorWrongValidateCode);
-            
+
+            ViewBag.ReturnUrl = returnUrl; //登录成功后的返回地址
+            ViewBag.Title = Resources.PageLanguage.TitleLogin; //登录页面标题
             // 如果我们进行到这一步时某个地方出错，则重新显示表单
             return View(model);
         }
