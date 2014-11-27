@@ -196,12 +196,24 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\AccountModels.cs" />
-    <Compile Include="Models\OrderModels.cs" />
-    <Compile Include="Models\ReviewModels.cs" />
-    <Compile Include="Models\GoodsModels.cs" />
-    <Compile Include="Models\Prompt.cs" />
-    <Compile Include="Models\ValidateCodeModel.cs" />
+    <Compile Include="Models\AccountModels.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\GoodsModels.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\OrderModels.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\Prompt.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\ReviewModels.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\ValidateCodeModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\UserRepository.cs" />
   </ItemGroup>
@@ -449,9 +461,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Order\Edit.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Order\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Account\ChangePassword.cshtml" />

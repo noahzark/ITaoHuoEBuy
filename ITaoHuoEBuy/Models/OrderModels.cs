@@ -18,11 +18,12 @@ namespace EBuy.Models
 
         public enum OrderStatusId
         {
-            Unpaid,
-            Paid,
-            Sent,
-            Finished,
-            Cancelled,
+            Unpaid = 0,
+            Paid = 1,
+            Sent = 2,
+            Finished = 3,
+            WaitCancel = 4,
+            Cancelled = 5,
         }
 
         [Key]

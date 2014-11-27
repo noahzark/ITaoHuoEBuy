@@ -9,6 +9,7 @@ using WebMatrix.WebData;
 
 namespace EBuy.Controllers
 {
+    [Authorize]
     public class OrderController : Controller
     {
         private EBuyContext db = new EBuyContext();
@@ -120,29 +121,37 @@ namespace EBuy.Controllers
             return View(ordermodel);
         }
 
-        //
-        // GET: /Order/Delete/5
-
-        public ActionResult Delete(int id = 0)
+        [HttpPost]
+        public ActionResult AskCancel(int id)
         {
             OrderModel ordermodel = db.Order.Find(id);
-            if (ordermodel == null)
+
+            if (WebSecurity.CurrentUserId == ordermodel.CustomId)
             {
-                return HttpNotFound();
+                if (ordermodel.OrderStatus <= OrderModel.OrderStatusId.Finished)
+                    ordermodel.OrderStatus = OrderModel.OrderStatusId.WaitCancel;
             }
-            return View(ordermodel);
+
+            return RedirectToAction("Detail", ordermodel);
         }
 
         //
-        // POST: /Order/Delete/5
-
-        [HttpPost, ActionName("Delete")]
-        public ActionResult DeleteConfirmed(int id)
+        // POST: /Order/Cancel/5
+        [HttpPost]
+        public ActionResult CancelConfirmed(int id)
         {
             OrderModel ordermodel = db.Order.Find(id);
-            db.Order.Remove(ordermodel);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            GoodModel goodmodel = GoodModel.FromByteArray(ordermodel.GoodShortcut);
+
+            //验证当前操作用户为订单中商品的发布者
+            if (WebSecurity.CurrentUserId == goodmodel.UserId)
+            {
+                if (ordermodel.OrderStatus == OrderModel.OrderStatusId.WaitCancel)
+                    ordermodel.OrderStatus = OrderModel.OrderStatusId.Cancelled;
+                db.SaveChanges();
+            }
+            
+            return RedirectToAction("Detail", ordermodel);
         }
 
         protected override void Dispose(bool disposing)
