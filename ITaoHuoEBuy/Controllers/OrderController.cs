@@ -19,7 +19,12 @@ namespace EBuy.Controllers
 
         public ActionResult Index()
         {
-            return View(db.Order.ToList());
+            var orders = from order in db.Order
+                        select order;
+
+            orders = orders.Where(s => s.CustomId.Equals(WebSecurity.CurrentUserId));
+
+            return View(orders);
         }
 
         //
