@@ -17,12 +17,11 @@
             @Html.LabelFor(model => model.CommentDetail)
         </div>
         <div>
-            @Html.EditorFor(model => model.CommentDetail)
+            @Html.TextAreaFor(model => model.CommentDetail)
             @Html.ValidationMessageFor(model => model.CommentDetail)
         </div>
-
-        <p>
+        <div>
             <input type="submit" value="Create" />
-        </p>
+        </div>
     </div>
 }
