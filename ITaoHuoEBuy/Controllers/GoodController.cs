@@ -79,6 +79,11 @@ namespace EBuy.Controllers
                 return HttpNotFound();
 
             ViewBag.Title = "商品详情";
+            ViewBag.SellerName = db.UserProfiles.Find(goodsmodel.UserId).UserName;
+            ViewBag.NowAmountStr = "库存商品";
+            ViewBag.NowAmount = goodsmodel.NowGoodsAmount();
+            ViewBag.RealSoldStr = "已售出";
+            ViewBag.RealSold = goodsmodel.RealSaleAmount();
             return View(goodsmodel);
         }
 

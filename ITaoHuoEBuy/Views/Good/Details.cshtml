@@ -1,42 +1,100 @@
 ﻿@model EBuy.Models.GoodModel
 
-<h2>@ViewBag.Title</h2>
-
+<style type="text/css"> 
+    body, div{margin:0; padding:0} 
+    #out{height:290px; margin:0 auto; background:#add8e6} 
+    #lefttop,#righttop
+    {
+        font-weight:bold;
+        
+        height:200px;
+        float:left;
+        margin:10px 10px 10px 10px;
+    } 
+ 
+    #lefttop
+    {
+        width:470px;
+    } 
+    #righttop{ }
     
-    <img src="@Html.Action("GoodsImage", "Image", new { picName = Model.GoodsIcon })" alt="" width="215" height="120" />
-    <table>
+    #mytable
+    {
+        margin: 0 0 0 0;    
+    }
+</style> 
+
+<h2>@ViewBag.Title</h2>
+    
+    <div id="out">
+        <div id="lefttop">
+            <img src="@Html.Action("GoodsImage", "Image", new { picName = Model.GoodsIcon })" alt="" width="480" height="270" />
+        </div>
+        <div id="righttop">
+<table id="mytable">
     <tr>
         <td>
-             @Html.DisplayNameFor(model => model.UserId) :
-             @Html.DisplayFor(model => model.UserId)
+             销售者
         </td>
-
         <td>
-             @Html.DisplayNameFor(model => model.ReleaseTime):
+            @ViewBag.SellerName
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.DisplayNameFor(model => model.ReleaseTime)
+        </td>
+        <td colspan="3">
              @Html.DisplayFor(model => model.ReleaseTime)
         </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.DisplayNameFor(model => model.UpdateTime)
+        </td>
+        <td colspan="3">
+             @Html.DisplayFor(model => model.UpdateTime)
+        </td>
+    </tr>
+    <tr>
+    <td colspan="4"> <hr /> </td>
     </tr>
     <tr>
         <td>
              @Html.DisplayNameFor(model => model.GoodsName)
         </td>
         <td>
-            @Html.DisplayFor(model => model.GoodsName)
+             @Html.DisplayNameFor(model => model.GoodsPrice)
+        </td>
+        <td>
+            @ViewBag.NowAmountStr
+        </td>
+        <td>
+            @ViewBag.RealSoldStr
         </td>
     </tr>
     <tr>
         <td>
-             @Html.DisplayNameFor(model => model.GoodsPrice)
+            @Html.DisplayFor(model => model.GoodsName)
         </td>
         <td>
             @Html.DisplayFor(model => model.GoodsPrice)
         </td>
+        <td>
+            @ViewBag.NowAmount
+        </td>
+        <td>
+            @ViewBag.RealSold
+        </td>
+    </tr>
+    <tr>
+    <td colspan="4"> <hr /> </td>
     </tr>
     <tr>
         <td>
              @Html.DisplayNameFor(model => model.GoodsSummary)
         </td>
-        <td>
+        <td colspan="3">
             @Html.DisplayFor(model => model.GoodsSummary)
         </td>
     </tr>
@@ -46,11 +104,15 @@
         </td>
     </tr>
     <tr>
-        <td>
+        <td colspan="4">
             @Html.DisplayFor(model => model.GoodsDetail)
         </td>
     </tr>
     </table>
+        </div>
+    </div>
+    
+   
 @using (Html.BeginForm("AddToCart", "Cart", new { id = Model.GoodsId }, FormMethod.Post, null))
 {
     @Html.ValidationSummary(true)
