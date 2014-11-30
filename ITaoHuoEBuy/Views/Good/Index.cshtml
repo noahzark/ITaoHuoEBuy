@@ -119,7 +119,8 @@ else
                 <a href="/Good/Details/@item.GoodsId"><img src="@Html.Action("GoodsImage", "Image", new { picName = item.GoodsIcon })" alt="" height="120" width="215" /></a>
                 <h2>@Html.ActionLink(item.GoodsName, "Details", new { id = item.GoodsId })</h2>
                 <h3>￥ @Html.DisplayFor(modelItem => item.GoodsPrice)</h3>
-                <p>@Html.DisplayFor(modelItem => item.GoodsSummary)
+                <p>@Html.DisplayFor(modelItem => item.GoodsSummary)<br />
+                已售出：<a style="color:red">@Html.DisplayFor(modelItem => item.GoodsSold)</a> 件
                 </p>
          </div>
     </li>
