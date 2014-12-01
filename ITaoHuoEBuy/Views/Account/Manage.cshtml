@@ -8,18 +8,20 @@
 
 <p>你已使用 <strong>@User.Identity.Name</strong> 身份登录。</p>
 
-<p>
-<ul>
-    <li>
+<ol class="round">
+    <li class="one">
         <h3>修改密码</h3><br />
         @Html.ActionLink("Change Password", "ChangePassword", "Account")
     </li>
-    <li>
+    <li class="two">
         <h3>发布新商品</h3><br />
         @Html.ActionLink("Create New", "Create", "Good")
     </li>
+    <li class="three">
+        <h3>查看订单</h3><br />
+        @Html.ActionLink("View Orders", "Index", "Order")
+    </li>
 </ul>
-</p>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
