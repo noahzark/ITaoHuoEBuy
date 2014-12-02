@@ -9,13 +9,15 @@ namespace EBuy.Models
     /// <summary>
     /// 商品数据模型
     /// </summary>
-    [Table("Goods")]
-    [Serializable]
+    [Table("Goods")]//存在数据库的Goods表里
+    [Serializable]//可序列化的-表示该类的对象可以转换成一个字节数组
     public class GoodModel
     {
+        //空的GoodModel的构造函数，先创建一个空的GoodModel对象，之后再由Controller设置其属性
         public GoodModel()
-        {}
+        { }
 
+        //带参数的GoodModel构造函数，创建GoodModel的同时记录一些Controller传入的数据（即用户填写在newGood里的数据）
         public GoodModel( int userId, string picName, NewGoodsModel newGood)
         {
             UserId = userId; //给商品模型加上发布者的UserId
@@ -23,29 +25,31 @@ namespace EBuy.Models
             UpdateTime = DateTime.Now;
             GoodsIcon = picName; //给商品模型加上已上传的商品图标名
 
+            //把用户填写在NewGoodsModel里的把信息保存下来
             GoodsName = newGood.GoodsName;
             GoodsPrice = newGood.GoodsPrice;
+            GoodsAmount = newGood.GoodsAmount;
             GoodsSummary = newGood.GoodsSummary;
             GoodsDetail = newGood.GoodsDetail;
-            
-            GoodsAmount = newGood.GoodsAmount;
+
+            //初始化商品数量信息
             GoodsAdded = 0;
             GoodsReduced = 0;
             GoodsSold = 0;
             GoodsReturned = 0;
         }
 
-        [Key]
-        [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
-        public int GoodsId { get; set; }
+        [Key]//主键，数据库索引ID，类似于身份证号，学号
+        [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]//该属性由数据库自动生成
+        public int GoodsId { get; set; }//让系统自动生成
 
         [Required]
-        [Display(Name = "发布者ID")]
+        [Display(Name = "发布者ID")]//以后显示在View中该属性的标题
         public int UserId { get; set; }
 
         [Required]
         [DataType(DataType.DateTime)]
-        [Display(Name = "上架日期")]
+        [Display(Name = "上架日期")]//在网页上显示的标题为：上架日期
         public DateTime ReleaseTime { get; set; }
 
         [Required]
@@ -58,6 +62,10 @@ namespace EBuy.Models
         public string GoodsIcon { get; set; }
 
         [Required]
+        //{0} - 自己的名字，这里为"商品名称"
+        //{1} - 第一个参数的值，这里为 100
+        //{2} - 第二个参数的值，这里为 4
+        //所以最终显示出来的错误提示信息就是“商品名称必须至少包含4个字符，且不能超过100个字符。”
         [StringLength(100, ErrorMessage = "{0} 必须至少包含 {2} 个字符，且不能超过 {1} 个字符。", MinimumLength = 4)]
         [Display(Name = "商品名称")]
         public string GoodsName { get; set; }
@@ -146,11 +154,14 @@ namespace EBuy.Models
         }
     }
 
+    //这个是用来“临时”存放用户填写新商品数据的类
+    //没有[Table("xxx")]说明他并不对应数据库中的某个表，就不是存在数据库里的
     public class NewGoodsModel
     {
         [Required]
         [StringLength(100, ErrorMessage = "{0} 必须至少包含 {2} 个字符，且不能超过 {1} 个字符。", MinimumLength = 4)]
         [Display(Name = "商品名称")]
+        /// 商品名称
         public string GoodsName { get; set; }
 
         [Required]
@@ -183,6 +194,8 @@ namespace EBuy.Models
         public int GoodsAmount { get; set; }
     }
 
+    //这个类实现了IComparable接口，意思是GoodsInCartModel 能和GoodsInCartModel（<>尖括号里的内容）比
+    //下面的CompareTo方法告诉系统该怎么比
     public class GoodsInCartModel : IComparable<GoodsInCartModel>
     {
         public GoodsInCartModel(int id, String name, int quantity)
@@ -203,6 +216,9 @@ namespace EBuy.Models
         [Display(Name = "商品数量")]
         public int Quantity { get; set; }
 
+        //CompareTo方法告诉系统具体怎么排序，返回值小于0排前面，大于0排后面
+        //GoodsId - anotherGood.GoodsId 比如这个货物id是2，要比较的是3
+        //这时返回值就小于零，所以这个货物排前面
         public int CompareTo(GoodsInCartModel anotherGood)
         {
             return GoodsId - anotherGood.GoodsId;
