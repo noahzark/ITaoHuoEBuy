@@ -61,7 +61,14 @@ namespace EBuy.Controllers
                 return RedirectToAction("Details", "Good", new { id = review.GoodsId});
             }
 
-            return View(reviewmodel);
+            Error _e = new Error
+            {
+                Title = "评论填写错误",
+                Details = "评论信息填写错误",
+                Cause = Server.UrlEncode("<li>您填写的评论信息有错误</li>"),
+                Solution = Server.UrlEncode("返回<a data-ajax=\"false\" href='" + Url.Action("Details", "Good", new { id = reviewmodel.GoodsId }) + "'>商品详情</a>页面，重试")
+            };
+            return RedirectToAction("Error", "Prompt", _e);
         }
 
         //
