@@ -11,7 +11,7 @@
         <dd>@Html.DisplayFor(model => model.Details)</dd>
         @if (Model.DelayTime >= 0)
         {
-            <dd>系统将在 <span id="time">@Model.DelayTime </span>秒后跳转到 @Model.NavigationName。如未自动跳转请点击<a href="@Model.NavigationUrl">@Model.NavigationName</a>。</dd>
+            <dd>系统将在 <span id="time">@Model.DelayTime </span>秒后跳转到 @Model.NavigationName。如未自动跳转请点击<a data-ajax="false" href="@Model.NavigationUrl">@Model.NavigationName</a>。</dd>
             @section Scripts{
                 @Scripts.Render("~/bundles/jquery");
                 }
