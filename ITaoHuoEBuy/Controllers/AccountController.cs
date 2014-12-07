@@ -49,7 +49,7 @@ namespace EBuy.Controllers
                     Title = "验证码不存在",
                     Details = "在用户登录时，服务器端的验证码为空，或向服务器提交的验证码为空",
                     Cause = Server.UrlEncode("<li>你登录时在登录页面停留的时间过久页面已经超时</li><li>您绕开客户端验证向服务器提交数据</li>"),
-                    Solution = Server.UrlEncode("返回<a href='" + Url.Action("Login", "Account") + "'>登录</a>页面，刷新后重新登录")
+                    Solution = Server.UrlEncode("返回<a data-ajax=\"false\" href='" + Url.Action("Login", "Account") + "'>登录</a>页面，刷新后重新登录")
                 };
                 return RedirectToAction("Error", "Prompt", _e);
             }
@@ -122,7 +122,7 @@ namespace EBuy.Controllers
                     Title = "验证码不存在",
                     Details = "在用户登录时，服务器端的验证码为空，或向服务器提交的验证码为空",
                     Cause = Server.UrlEncode("<li>你登录时在登录页面停留的时间过久页面已经超时</li><li>您绕开客户端验证向服务器提交数据</li>"),
-                    Solution = Server.UrlEncode("返回<a href='" + Url.Action("Login", "Account") + "'>登录</a>页面，刷新后重新登录")
+                    Solution = Server.UrlEncode("返回<a data-ajax=\"false\" href='" + Url.Action("Login", "Account") + "'>登录</a>页面，刷新后重新登录")
                 };
                 return RedirectToAction("Error", "Prompt", _e);
             }
