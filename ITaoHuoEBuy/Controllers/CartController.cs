@@ -15,6 +15,11 @@ namespace EBuy.Controllers
     {
         private EBuyContext db = new EBuyContext();
 
+        /// <summary>
+        /// 查看当前访问的浏览器中Cookie是否有效
+        /// </summary>
+        /// <param name="oCookie">浏览器发送过来的Cookie</param>
+        /// <returns>有效则返回Ture,无效返回False</returns>
         private bool checkCookie(HttpCookie oCookie)
         {
             if (oCookie == null)
@@ -22,6 +27,12 @@ namespace EBuy.Controllers
             return true;
         }
 
+        /// <summary>
+        /// 检查Cookie中存储的购物车信息字符串是否合法
+        /// 即是否符合 商品1id:商品1数量,商品2id:商品2数量的格式
+        /// </summary>
+        /// <param name="goodStr">购物车字符串</param>
+        /// <returns>合法返回True，否则返回False</returns>
         public static bool checkGoodInCookie(String goodStr)
         {
             if (String.IsNullOrEmpty(goodStr))
@@ -36,6 +47,11 @@ namespace EBuy.Controllers
             return true;
         }
 
+        /// <summary>
+        /// 获取购物车中商品字符串的商品Id
+        /// </summary>
+        /// <param name="cartStr">商品字符串</param>
+        /// <returns>成功则返回转换后的商品ID，否则返回-1</returns>
         public static int getGoodsId(String cartStr)
         {
             if (checkGoodInCookie(cartStr))
