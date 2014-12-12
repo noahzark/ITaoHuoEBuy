@@ -50,6 +50,8 @@ namespace EBuy.Controllers
             {
                 return HttpNotFound();
             }
+            string notEnoughGoodsName = "";
+
             HttpCookie oCookie = Request.Cookies["ShoppingCart"];
             oCookie.Expires = DateTime.Now.AddYears(3);
             string ShoppingCartStr = oCookie.Value.ToString();
@@ -78,6 +80,12 @@ namespace EBuy.Controllers
                     OrderStatus = OrderModel.OrderStatusId.Unpaid,
                 };
 
+                if (quantity > goodModel.NowGoodsAmount())
+                {
+                    notEnoughGoodsName += goodModel.GoodsName + ",";
+                    continue;
+                }
+
                 goodModel.GoodsSold += quantity;
 
                 db.Entry(goodModel).State = EntityState.Modified;
@@ -86,6 +94,18 @@ namespace EBuy.Controllers
             }
 
             db.SaveChanges();
+
+            if (!String.IsNullOrEmpty(notEnoughGoodsName))
+            {
+                Error _e = new Error
+                {
+                    Title = "商品库存不足",
+                    Details = "您想购买的" + notEnoughGoodsName + "由于库存不足无法下单",
+                    Cause = Server.UrlEncode("<li>您想要购买的商品库存不足</li><li>其他商品已成功生成订单</li>"),
+                    Solution = Server.UrlEncode("返回<a data-ajax=\"false\" href='" + Url.Action("Show", "Cart") + "'>购物车</a>页面，修改后重新下单")
+                };
+                return RedirectToAction("Error", "Prompt", _e);
+            }
 
             Notice _n = new Notice
             {
@@ -133,7 +153,7 @@ namespace EBuy.Controllers
 
             if (WebSecurity.CurrentUserId == ordermodel.CustomId)
             {
-                if (ordermodel.OrderStatus <= OrderModel.OrderStatusId.Finished)
+                if (ordermodel.OrderStatus == OrderModel.OrderStatusId.Unpaid)
                     ordermodel.OrderStatus = OrderModel.OrderStatusId.WaitCancel;
             }
 
