@@ -37,6 +37,10 @@ namespace EBuy.Controllers
             {
                 return HttpNotFound();
             }
+            GoodModel good = GoodModel.FromByteArray(ordermodel.GoodShortcut);
+            ViewBag.Title = "订单详情";
+            ViewBag.GoodsName = good.GoodsName;
+            ViewBag.OrderMoney = good.GoodsPrice * ordermodel.GoodsAmount;
             return View(ordermodel);
         }
 
@@ -118,46 +122,20 @@ namespace EBuy.Controllers
             return RedirectToAction("Notice", "Prompt", _n);
         }
 
-        //
-        // GET: /Order/Edit/5
-
-        public ActionResult Edit(int id = 0)
-        {
-            OrderModel ordermodel = db.Order.Find(id);
-            if (ordermodel == null)
-            {
-                return HttpNotFound();
-            }
-            return View(ordermodel);
-        }
-
-        //
-        // POST: /Order/Edit/5
-
-        [HttpPost]
-        public ActionResult Edit(OrderModel ordermodel)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(ordermodel).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(ordermodel);
-        }
-
-        [HttpPost]
         public ActionResult AskCancel(int id)
         {
             OrderModel ordermodel = db.Order.Find(id);
 
             if (WebSecurity.CurrentUserId == ordermodel.CustomId)
             {
-                if (ordermodel.OrderStatus == OrderModel.OrderStatusId.Unpaid)
+                if (ordermodel.OrderStatus == OrderModel.OrderStatusId.Unpaid) {
                     ordermodel.OrderStatus = OrderModel.OrderStatusId.WaitCancel;
+                    db.Entry(ordermodel).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
             }
 
-            return RedirectToAction("Detail", ordermodel);
+            return RedirectToAction("Details", new { id = ordermodel.OrderId });
         }
 
         //
@@ -172,11 +150,14 @@ namespace EBuy.Controllers
             if (WebSecurity.CurrentUserId == goodmodel.UserId)
             {
                 if (ordermodel.OrderStatus == OrderModel.OrderStatusId.WaitCancel)
+                {
                     ordermodel.OrderStatus = OrderModel.OrderStatusId.Cancelled;
-                db.SaveChanges();
+                    db.Entry(ordermodel).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
             }
-            
-            return RedirectToAction("Detail", ordermodel);
+
+            return RedirectToAction("Details", new { id = ordermodel.OrderId });
         }
 
         protected override void Dispose(bool disposing)

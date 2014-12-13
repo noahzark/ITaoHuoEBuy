@@ -457,12 +457,6 @@
     <Content Include="Views\Order\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Order\Create.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Order\Edit.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Views\Account\ChangePassword.cshtml" />
   </ItemGroup>
   <PropertyGroup>

@@ -1,26 +1,50 @@
 ﻿@model EBuy.Models.OrderModel
 
-@{
-    ViewBag.Title = "订单详情";
-}
-
-<h2>Details</h2>
+<h2>@ViewBag.Title</h2>
 
 <fieldset>
     <legend>OrderModel</legend>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.CustomId)
+        @Html.DisplayNameFor(model => model.CustomId)
     </div>
     <div class="display-field">
         @Html.DisplayFor(model => model.CustomId)
     </div>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.OrderDate)
+        @Html.DisplayNameFor(model => model.OrderDate)
     </div>
     <div class="display-field">
         @Html.DisplayFor(model => model.OrderDate)
+    </div>
+
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.OrderStatus)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.OrderStatus)
+    </div>
+
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.GoodsAmount)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.GoodsAmount)
+    </div>
+
+    <div class="display-label">
+        商品名称
+    </div>
+    <div class="display-field">
+        @ViewBag.GoodsName
+    </div>
+
+    <div class="display-label">
+        订单金额
+    </div>
+    <div class="display-field">
+        @ViewBag.OrderMoney
     </div>
 </fieldset>
 <p>
