@@ -195,22 +195,26 @@ namespace EBuy.Controllers
         }
 
         [HttpPost]
-        public ActionResult EditAmount(GoodAmount goodsAmount)
+        public ActionResult EditAmount(int GoodsId, int GoodsAmount)
         {
-            if (ModelState.IsValid  && goodsAmount.GoodsAmount!=0)
+            if (ModelState.IsValid  && GoodsAmount!=0)
             {
-                GoodModel goodsmodel = db.Goods.Find(goodsAmount.GoodsId);
-                //更新商品修改的数量
-                if (goodsAmount.GoodsAmount > 0)
-                    goodsmodel.GoodsAdded += goodsAmount.GoodsAmount;
-                else
-                    goodsmodel.GoodsReduced += goodsAmount.GoodsAmount;
-                //更新商品修改时间
-                goodsmodel.UpdateTime = DateTime.Now;
+                GoodModel goodsmodel = db.Goods.Find(GoodsId);
+                //如果根据GoodsId能找到商品，且增补货操作不会导致库存商品小于0
+                if (goodsmodel != null && goodsmodel.NowGoodsAmount() + GoodsAmount >= 0)
+                {
+                    //更新商品修改的数量
+                    if (GoodsAmount > 0)
+                        goodsmodel.GoodsAdded += GoodsAmount;
+                    else
+                        goodsmodel.GoodsReduced += -GoodsAmount;
+                    //更新商品修改时间
+                    goodsmodel.UpdateTime = DateTime.Now;
 
-                db.Entry(goodsAmount).State = EntityState.Modified;
-                db.SaveChanges();
-                return View("Edit", goodsmodel);
+                    db.Entry(goodsmodel).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Details", new { id = GoodsId });
+                }
             }
             Error _e = new Error
             {
