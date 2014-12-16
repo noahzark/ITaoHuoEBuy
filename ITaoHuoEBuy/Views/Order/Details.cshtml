@@ -23,7 +23,16 @@
         @Html.DisplayNameFor(model => model.OrderStatus)
     </div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.OrderStatus)
+        @switch (item.OrderStatus)
+        {
+            case 0: <a>未支付</a> break;
+            case 1: <a>已支付</a> break;
+            case 2: <a>已发货</a> break;
+            case 3: <a>已完成</a> break;
+            case 4: <a>等待卖家确认取消</a> break;
+            case 5: <a>已取消</a> break;
+            default: <a>未知的订单状态</a> break;
+        }
     </div>
 
     <div class="display-label">
