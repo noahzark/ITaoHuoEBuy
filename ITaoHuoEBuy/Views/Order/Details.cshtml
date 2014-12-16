@@ -23,7 +23,7 @@
         @Html.DisplayNameFor(model => model.OrderStatus)
     </div>
     <div class="display-field">
-        @switch (item.OrderStatus)
+        @switch (Model.OrderStatus)
         {
             case 0: <a>未支付</a> break;
             case 1: <a>已支付</a> break;
