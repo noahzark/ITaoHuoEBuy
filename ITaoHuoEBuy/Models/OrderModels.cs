@@ -49,6 +49,6 @@ namespace EBuy.Models
 
         [Required]
         [Display(Name = "订单状态")]
-        public OrderStatusId OrderStatus { get; set; }
+        public int OrderStatus { get; set; }
     }
 }

@@ -81,7 +81,7 @@ namespace EBuy.Controllers
                     OrderDate = DateTime.Now,
                     GoodShortcut = GoodModel.ToByteArray(goodModel),
                     GoodsAmount = quantity,
-                    OrderStatus = OrderModel.OrderStatusId.Unpaid,
+                    OrderStatus = (int) OrderModel.OrderStatusId.Unpaid,
                 };
 
                 if (quantity > goodModel.NowGoodsAmount())
@@ -128,8 +128,8 @@ namespace EBuy.Controllers
 
             if (WebSecurity.CurrentUserId == ordermodel.CustomId)
             {
-                if (ordermodel.OrderStatus == OrderModel.OrderStatusId.Unpaid) {
-                    ordermodel.OrderStatus = OrderModel.OrderStatusId.WaitCancel;
+                if (ordermodel.OrderStatus == (int) OrderModel.OrderStatusId.Unpaid) {
+                    ordermodel.OrderStatus = (int) OrderModel.OrderStatusId.WaitCancel;
                     db.Entry(ordermodel).State = EntityState.Modified;
                     db.SaveChanges();
                 }
@@ -149,9 +149,9 @@ namespace EBuy.Controllers
             //验证当前操作用户为订单中商品的发布者
             if (WebSecurity.CurrentUserId == goodmodel.UserId)
             {
-                if (ordermodel.OrderStatus == OrderModel.OrderStatusId.WaitCancel)
+                if (ordermodel.OrderStatus == (int) OrderModel.OrderStatusId.WaitCancel)
                 {
-                    ordermodel.OrderStatus = OrderModel.OrderStatusId.Cancelled;
+                    ordermodel.OrderStatus = (int) OrderModel.OrderStatusId.Cancelled;
                     db.Entry(ordermodel).State = EntityState.Modified;
                     db.SaveChanges();
                 }

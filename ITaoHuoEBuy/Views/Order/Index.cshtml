@@ -31,11 +31,20 @@
             @Html.DisplayFor(modelItem => item.OrderDate)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.OrderStatus)
+            @switch (item.OrderStatus)
+            {
+                case 0: <a>未支付</a> break;
+                case 1: <a>已支付</a> break;
+                case 2: <a>已发货</a> break;
+                case 3: <a>已完成</a> break;
+                case 4: <a>等待卖家确认取消</a> break;
+                case 5: <a>已取消</a> break;
+                default: <a>未知的订单状态</a> break;
+            }
         </td>
         <td>
             @Html.ActionLink("查看详情", "Details", new { id=item.OrderId })
-            @if (item.OrderStatus <= EBuy.Models.OrderModel.OrderStatusId.Unpaid)
+            @if (item.OrderStatus <= (int) EBuy.Models.OrderModel.OrderStatusId.Unpaid)
             {
                 @Html.ActionLink("取消订单", "AskCancel", new { id = item.OrderId })
             }
